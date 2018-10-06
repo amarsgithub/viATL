@@ -18,5 +18,5 @@
         </activity>
         <activity android:name=".Photo_List"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>
