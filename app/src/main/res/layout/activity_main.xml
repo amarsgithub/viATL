@@ -14,4 +14,12 @@
         tools:layout_editor_absoluteX="130dp"
         tools:layout_editor_absoluteY="137dp"
         android:onClick="PhotoList"/>
+
+    <Button
+        android:id="@+id/Take_Photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TAKE PHOTO"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="273dp" />
 </android.support.constraint.ConstraintLayout>

@@ -1,24 +1,19 @@
 package com.example.amars.viatl;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 
-//public static final int GALLERY_REQUEST =1;
+public static final int GALLERY_REQUEST =1;
 public class MainActivity extends AppCompatActivity {
 
 
@@ -33,41 +28,26 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, 1);
+        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
     }
 
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if(resultCode == Activity.RESULT_OK)
-//            switch (requestCode){
-//                case 1:
-//                    Uri selectedImage = data.getData();
-//                    try {
-//                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-//                        carImage.setImageBitmap(bitmap);
-//                    } catch (IOException e) {
-//                        Log.i("TAG", "Some exception " + e);
-//                    }
-//                    break;
-//            }
-//    }
-protected void onActivityResult(int reqCode, int resultCode, Intent data) {
-    super.onActivityResult(reqCode, resultCode, data);
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
 
 
-    if (resultCode == RESULT_OK) {
-        try {
-            final Uri imageUri = data.getData();
-            final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            image_view.setImageBitmap(selectedImage);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(PostImage.this, "Something went wrong", Toast.LENGTH_LONG).show();
+        if (resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                image_view.setImageBitmap(selectedImage);
+            } catch (FilzeNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(PostImage.this, "Something went wrong", Toast.LENGTH_LONG).show();
+            }
+
+        }else {
+            Toast.makeText(PostImage.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
-
-    }else {
-        Toast.makeText(PostImage.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
     }
-}
 }
