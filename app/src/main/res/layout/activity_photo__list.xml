@@ -4,14 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Photo_List">
 
-    <Button
-        android:id="@+id/SelectPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SELECT PHOTO"
-        tools:layout_editor_absoluteX="130dp"
-        tools:layout_editor_absoluteY="137dp"
-        android:onClick="PhotoList"/>
 </android.support.constraint.ConstraintLayout>
