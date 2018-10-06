@@ -11,7 +11,6 @@
         android:id="@+id/button_choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/edit_text_file_name"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="10dp"
@@ -42,13 +41,11 @@
 
     <ProgressBar
         android:id="@+id/progress_bar"
+
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="101dp"
-        android:layout_marginBotton="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_alignParentLeft="true" />
 
     <Button
@@ -71,5 +68,6 @@
         android:gravity="center"
         android:text="Show uploads"
         android:textSize="16sp" />
+
 
 </RelativeLayout>
