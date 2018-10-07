@@ -3,6 +3,7 @@ package com.example.amars.viatl;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.app.Activity;
 import android.content.Intent;
@@ -65,7 +66,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+///////////
+        Button btnCamera = (Button)findViewById(R.id.btnCamera);
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+            }
+        });
 
+
+        ///////////
         mButtonChooseImage = findViewById(R.id.button_choose_image);
         mButtonUpload = findViewById(R.id.button_upload);
         mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
@@ -115,6 +127,11 @@ public class MainActivity extends AppCompatActivity {
             mImageUri = data.getData();
             mImageView.setImageURI(mImageUri);
             
+        }
+        if (requestCode == 0)
+        {
+            Bitmap bitmap = (Bitmap)data.getExtras().get("data");
+            mImageView.setImageBitmap(bitmap);
         }
     }
 
