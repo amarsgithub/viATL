@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1021368595986",
+    "firebase_url": "https://viatl-66614.firebaseio.com",
+    "project_id": "viatl-66614",
+    "storage_bucket": "viatl-66614.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1021368595986:android:d256bf2747e51421",
+        "android_client_info": {
+          "package_name": "com.example.amars.viatl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1021368595986-4urjd3kt02vgqvo1un9m8di959jfjm6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.amars.viatl",
+            "certificate_hash": "fdc99419e01bfeb68c060d0a8c4ee6322edaae64"
+          }
+        },
+        {
+          "client_id": "1021368595986-87t9age4ri915in7ffedhapiq2jpvccg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs1lSf-xmufg0VLEUeSY7i9z5SNnyn50w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021368595986-87t9age4ri915in7ffedhapiq2jpvccg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

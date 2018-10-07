@@ -37,4 +37,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
+//    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:16.2.0'
+    implementation 'com.google.firebase:firebase-ml-vision:17.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'
+//    implementation 'com.google.firebase:firebase-core'
 }

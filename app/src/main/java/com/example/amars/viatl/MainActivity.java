@@ -5,12 +5,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,31 +27,75 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.label.FirebaseVisionLabel;
+import com.google.firebase.ml.vision.label.FirebaseVisionLabelDetector;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 
 //public static final int GALLERY_REQUEST =1;
 public class MainActivity extends AppCompatActivity {
+    ////
+    private void runImageLabeling(Bitmap bitmap) throws IOException {
+        //Create a FirebaseVisionImage
+        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
 
+
+        //Get access to an instance of FirebaseImageDetector
+         FirebaseVisionLabelDetector detector = FirebaseVision.getInstance().getVisionLabelDetector();
+        Task<List<FirebaseVisionLabel>> task = detector.detectInImage(image);
+        //Use the detector to detect the labels inside the image
+        task.addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionLabel>>() {
+                                      @Override
+                                      public void onSuccess(List<FirebaseVisionLabel> firebaseVisionLabels) {
+                                          mProgressBar.setVisibility(View.GONE);
+
+//                                          for (int i = 0; i < firebaseVisionLabels.size(); i++) {
+//                                              mResult = (TextView) findViewById(R.id.result);
+//                                              mResult.setText(firebaseVisionLabels.get(i).getLabel());
+//                                              mResult.setVisibility(View.VISIBLE);
+//
+//                                          }
+                                          Toast.makeText(MainActivity.this,firebaseVisionLabels.get(0).getLabel(),Toast.LENGTH_LONG).show();
+                                      }
+                                  });
+            // Task completed successfully
+
+//            CoordinatorLayout.Behavior sheetBehavior;
+//
+//            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mProgressBar.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+    ////
     private static final int PICK_IMAGE_REQUEST = 1;
-
+    private TextView mResult;
     private Button mButtonChooseImage;
     private Button mButtonUpload;
     private TextView mTextViewShowUploads;
     private EditText mEditTextFileName;
     private ImageView mImageView;
     private ProgressBar mProgressBar;
-
+    private Button btnCamera;
     private Uri mImageUri;
 
     private StorageReference mStorageRef;
@@ -67,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 ///////////
-        Button btnCamera = (Button)findViewById(R.id.btnCamera);
+        btnCamera = (Button)findViewById(R.id.btnCamera);
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,12 +168,15 @@ public class MainActivity extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
             mImageView.setImageURI(mImageUri);
-            
+            mImageView.setRotation(90);
+            mButtonChooseImage.setVisibility(View.INVISIBLE);
+            btnCamera.setVisibility(View.INVISIBLE);
         }
         if (requestCode == 0)
         {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
             mImageView.setImageBitmap(bitmap);
+
         }
     }
 
@@ -181,8 +226,10 @@ public class MainActivity extends AppCompatActivity {
                             mProgressBar.setProgress((int)progress);
                         }
                     });
+
         } else {
             Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
