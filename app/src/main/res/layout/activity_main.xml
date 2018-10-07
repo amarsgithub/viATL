@@ -14,9 +14,9 @@
         android:layout_alignBottom="@+id/edit_text_file_name"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="27dp"
         android:text="Choose File" />
 
     <EditText
@@ -28,9 +28,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginRight="63dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginRight="47dp"
         android:hint="Enter file name" />
 
     <ImageView
@@ -43,12 +43,12 @@
 
     <ProgressBar
         android:id="@+id/progress_bar"
-
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp" />
 
     <Button
         android:id="@+id/button_upload"
