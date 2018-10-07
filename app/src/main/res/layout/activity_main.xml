@@ -14,10 +14,12 @@
         android:layout_alignBottom="@+id/edit_text_file_name"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="2dp"
-        android:text="Choose File" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="114dp"
+        android:layout_marginLeft="114dp"
+        android:layout_marginBottom="76dp"
+        android:text="Choose File"
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/edit_text_file_name"
@@ -28,27 +30,37 @@
         android:layout_alignParentRight="true"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginRight="63dp"
-        android:hint="Enter file name" />
+        android:layout_marginTop="133dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:inputType="none"
+        android:visibility="invisible" />
 
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="860dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="155dp" />
         android:layout_below="@id/edit_text_file_name"
-        android:layout_above="@id/progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp" />
+        <!--android:layout_above="@id/progress_bar"-->
         android:layout_marginTop="16dp"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"
 
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="96dp"
+
         android:layout_marginBottom="16dp"
-        android:layout_alignParentLeft="true" />
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/button_upload"
@@ -56,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="74dp"
         android:text="Upload" />
 
     <TextView
@@ -65,11 +78,12 @@
         android:layout_alignBaseline="@+id/button_upload"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:gravity="center"
         android:text="Show uploads"
-        android:textSize="16sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
