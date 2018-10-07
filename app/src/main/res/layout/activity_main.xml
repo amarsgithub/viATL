@@ -53,7 +53,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
-        android:text="Upload" />
+        android:text="Upload"
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progress_bar"

@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
             mImageUri = data.getData();
             mImageView.setImageURI(mImageUri);
             mImageView.setRotation(90);
+<<<<<<< HEAD
             mImageView.invalidate();
             BitmapDrawable drawable = (BitmapDrawable) mImageView.getDrawable();
             Bitmap bitmap = drawable.getBitmap();
@@ -203,6 +204,10 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+=======
+            mButtonChooseImage.setVisibility(View.INVISIBLE);
+
+>>>>>>> d5bc43fdbe8f0c1866c38b14fe1e7479ba893549
         }
         if (requestCode == 0)
         {
@@ -213,8 +218,11 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> d5bc43fdbe8f0c1866c38b14fe1e7479ba893549
         }
     }
 
