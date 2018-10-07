@@ -170,13 +170,17 @@ public class MainActivity extends AppCompatActivity {
             mImageView.setImageURI(mImageUri);
             mImageView.setRotation(90);
             mButtonChooseImage.setVisibility(View.INVISIBLE);
-            btnCamera.setVisibility(View.INVISIBLE);
+
         }
         if (requestCode == 0)
         {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
             mImageView.setImageBitmap(bitmap);
-
+            try {
+                runImageLabeling(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
