@@ -1,13 +1,18 @@
 package com.example.amars.viatl;
 
 import android.content.ContentResolver;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +37,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
 import com.google.firebase.ml.vision.label.FirebaseVisionLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionLabelDetector;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,18 +46,19 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Iterator;
 import java.util.List;
 
 
 //public static final int GALLERY_REQUEST =1;
 public class MainActivity extends AppCompatActivity {
-    ////
+
+
+
     private void runImageLabeling(Bitmap bitmap) throws IOException {
         //Create a FirebaseVisionImage
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(bitmap);
-
-
         //Get access to an instance of FirebaseImageDetector
          FirebaseVisionLabelDetector detector = FirebaseVision.getInstance().getVisionLabelDetector();
         Task<List<FirebaseVisionLabel>> task = detector.detectInImage(image);
@@ -61,21 +68,9 @@ public class MainActivity extends AppCompatActivity {
                                       public void onSuccess(List<FirebaseVisionLabel> firebaseVisionLabels) {
                                           mProgressBar.setVisibility(View.GONE);
 
-//                                          for (int i = 0; i < firebaseVisionLabels.size(); i++) {
-//                                              mResult = (TextView) findViewById(R.id.result);
-//                                              mResult.setText(firebaseVisionLabels.get(i).getLabel());
-//                                              mResult.setVisibility(View.VISIBLE);
-//
-//                                          }
                                           Toast.makeText(MainActivity.this,firebaseVisionLabels.get(0).getLabel(),Toast.LENGTH_LONG).show();
-                                      }
+                                             }
                                   });
-            // Task completed successfully
-
-//            CoordinatorLayout.Behavior sheetBehavior;
-//
-//            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
 
         task.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -86,7 +81,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    ////
+
+    private void runImageLabeling(ByteBuffer buffer) throws IOException {
+        //Create a FirebaseVisionImage
+
+        FirebaseVisionImageMetadata metadata = new FirebaseVisionImageMetadata.Builder()
+                .setWidth(1280)
+                .setHeight(720)
+                .setFormat(FirebaseVisionImageMetadata.IMAGE_FORMAT_NV21)
+                .setRotation(90)
+                .build();
+
+        FirebaseVisionImage image = FirebaseVisionImage.fromByteBuffer(buffer, metadata);
+        //Get access to an instance of FirebaseImageDetector
+        FirebaseVisionLabelDetector detector = FirebaseVision.getInstance().getVisionLabelDetector();
+        Task<List<FirebaseVisionLabel>> task = detector.detectInImage(image);
+        //Use the detector to detect the labels inside the image
+        task.addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionLabel>>() {
+            @Override
+            public void onSuccess(List<FirebaseVisionLabel> firebaseVisionLabels) {
+                mProgressBar.setVisibility(View.GONE);
+
+                Toast.makeText(MainActivity.this,firebaseVisionLabels.get(0).getLabel(),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mProgressBar.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
+
+            }
+        });
+    }
+
     private static final int PICK_IMAGE_REQUEST = 1;
     private TextView mResult;
     private Button mButtonChooseImage;
@@ -108,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-///////////
         btnCamera = (Button)findViewById(R.id.btnCamera);
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,8 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        ///////////
         mButtonChooseImage = findViewById(R.id.button_choose_image);
         mButtonUpload = findViewById(R.id.button_upload);
         mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
@@ -169,13 +195,25 @@ public class MainActivity extends AppCompatActivity {
             mImageUri = data.getData();
             mImageView.setImageURI(mImageUri);
             mImageView.setRotation(90);
-            mButtonChooseImage.setVisibility(View.INVISIBLE);
-            btnCamera.setVisibility(View.INVISIBLE);
+            mImageView.invalidate();
+            BitmapDrawable drawable = (BitmapDrawable) mImageView.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+            try {
+                runImageLabeling(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         if (requestCode == 0)
         {
             Bitmap bitmap = (Bitmap)data.getExtras().get("data");
             mImageView.setImageBitmap(bitmap);
+            try {
+                runImageLabeling(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
         }
     }
